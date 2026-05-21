@@ -20,21 +20,13 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Make gradlew executable
+    - name: Build APK with Gradle
       run: |
         if [ -f "./gradlew" ]; then
           chmod +x ./gradlew
-        elif [ -f "./lenscraft (1)/gradlew" ]; then
-          chmod +x "./lenscraft (1)/gradlew"
-        fi
-
-    - name: Build APK with Gradle Wrapper
-      run: |
-        if [ -f "./gradlew" ]; then
           ./gradlew assembleDebug
-        elif [ -f "./lenscraft (1)/gradlew" ]; then
-          cd "lenscraft (1)" && ./gradlew assembleDebug
         else
-          echo "Gradlew not found, trying system gradle..."
-          gradle assembleDebug
+          cd "lenscraft (1)"
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
         fi
